@@ -29,7 +29,7 @@ npm run preview
 murali-portfolio/
 ├── public/
 │   ├── favicon.svg          # M monogram favicon
-│   └── Murali_Resume.pdf    # ← Add your resume PDF here
+│   └── Murali_A.pdf         # ← Add your resume PDF here
 │
 ├── src/
 │   ├── assets/              # Static images, icons
@@ -90,7 +90,7 @@ const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
 Place your resume PDF at:
 ```
-public/Murali_Resume.pdf
+public/Murali_A.pdf
 ```
 The download button in the Hero section links to this file automatically.
 

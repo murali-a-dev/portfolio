@@ -1,200 +1,302 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import SectionHeader from "../ui/SectionHeader";
 import { PERSONAL } from "../../data/portfolioData";
 
 /*
- * EmailJS Integration
- * ─────────────────────────────────────────────
- * 1. Sign up at https://emailjs.com (free)
- * 2. Create a Gmail service  → copy SERVICE_ID
- * 3. Create an email template → copy TEMPLATE_ID
- * 4. Your Public Key is already set in index.html
- *
- * Replace the two values below, then the form will
- * send real emails without any backend.
+ * EmailJS Configuration
+ * Service & Template IDs can be replaced with real keys from emailjs.com
  */
 const SERVICE_ID = "YOUR_SERVICE_ID";
 const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
-function AboutLabel({ text }) {
+/**
+ * Section label helper
+ */
+function ContactLabel({ text }) {
   return (
-    <div className="flex items-center gap-2 text-[10px] font-extrabold tracking-[0.18em] uppercase mb-3" style={{ color: "#a78bfa" }}>
-      {text}
-      <span className="flex-1 h-px" style={{ background: "rgba(167,139,250,0.2)" }} />
+    <div className="flex items-center gap-2 text-[10px] font-extrabold tracking-[0.18em] uppercase mb-3 text-violet-300">
+      <span>{text}</span>
+      <span className="flex-1 h-px bg-violet-400/20" />
     </div>
   );
 }
 
+/**
+ * Left Column: Direct contact info badges & social buttons
+ */
 function ContactInfoPanel() {
-  const contacts = [
+  const displayWebsite = PERSONAL.portfolio.replace(/^https?:\/\//, "");
+
+  const contactList = [
     { icon: "📧", label: "Email", value: PERSONAL.email, href: `mailto:${PERSONAL.email}`, clickable: true },
     { icon: "📞", label: "Phone", value: PERSONAL.phone, href: `tel:${PERSONAL.phone}`, clickable: true },
     { icon: "📍", label: "Location", value: PERSONAL.location, href: null, clickable: false },
   ];
 
   return (
-    <div className="relative rounded-2xl overflow-hidden p-7"
-      style={{ border: "1px solid rgba(124,58,237,0.35)", background: "rgba(124,58,237,0.06)" }}>
-      <div className="absolute top-0 left-0 right-0 h-[3px]"
-        style={{ background: "linear-gradient(90deg,#7c3aed,#a78bfa,#7c3aed)", borderRadius: "20px 20px 0 0" }} />
-      <div className="absolute top-[-50px] right-[-50px] w-40 h-40 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%)" }} />
+    <div className="relative rounded-2xl overflow-hidden p-6 sm:p-7 border border-violet-500/30 bg-violet-950/10 backdrop-blur-md">
+      {/* Top Gradient Shimmer Bar */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-violet-600 via-purple-400 to-violet-600 rounded-t-2xl" />
 
-      <AboutLabel text="Get In Touch" />
+      {/* Ambient Corner Glow */}
+      <div
+        className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent 70%)" }}
+      />
 
-      {/* Availability */}
-      <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl mb-5"
-        style={{ border: "1px solid rgba(52,211,153,0.2)", background: "rgba(52,211,153,0.06)" }}>
-        <span className="w-2 h-2 rounded-full flex-shrink-0"
-          style={{ background: "#34d399", animation: "tl-pulse 1.8s ease-in-out infinite" }} />
-        <p className="text-[12px] font-semibold text-white/65">
+      <ContactLabel text="Get In Touch" />
+
+      {/* Availability Status Badge */}
+      <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl mb-5 border border-emerald-500/20 bg-emerald-500/[0.06]">
+        <span
+          className="w-2 h-2 rounded-full flex-shrink-0 bg-emerald-400"
+          style={{ animation: "tl-pulse 1.8s ease-in-out infinite" }}
+        />
+        <p className="text-[12px] font-semibold text-white/70">
           Ready for <span className="text-emerald-400 font-bold">New Professional Challenges</span>
         </p>
       </div>
 
+      {/* Contact Cards List */}
       <div className="flex flex-col gap-3 mb-6">
-        {contacts.map((c) => {
+        {contactList.map((c) => {
           const Tag = c.clickable ? "a" : "div";
           return (
-            <Tag key={c.label} href={c.href || undefined}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${c.clickable ? "cursor-pointer hover:translate-x-1" : "cursor-default"}`}
-              style={{ border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)", textDecoration: "none" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-base flex-shrink-0"
-                style={{ background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)" }}>
+            <Tag
+              key={c.label}
+              href={c.href || undefined}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 border border-white/5 bg-white/[0.02] ${
+                c.clickable ? "cursor-pointer hover:translate-x-1 hover:border-violet-500/30 hover:bg-white/[0.05]" : "cursor-default"
+              }`}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-base flex-shrink-0 bg-violet-600/15 border border-violet-400/20">
                 {c.icon}
               </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-white/35">{c.label}</p>
-                <p className="text-[13px] font-bold text-white/80 mt-0.5">{c.value}</p>
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">{c.label}</p>
+                <p className="text-[13px] font-bold text-white/85 mt-0.5 truncate">{c.value}</p>
               </div>
-              {c.clickable && <span className="ml-auto text-white/25 text-sm">→</span>}
+              {c.clickable && <span className="ml-auto text-white/30 text-sm">→</span>}
             </Tag>
           );
         })}
       </div>
 
-      <AboutLabel text="Find Me On" />
+      {/* Social Media & Portfolio Links */}
+      <ContactLabel text="Find Me On" />
       <div className="grid grid-cols-2 gap-2.5">
-        {[
-          { label: "GitHub", href: PERSONAL.github, color: "rgba(255,255,255,0.75)", accent: "rgba(255,255,255,0.12)", full: false },
-          { label: "LinkedIn", href: PERSONAL.linkedin, color: "#38BDF8", accent: "rgba(56,189,248,0.22)", full: false },
-          { label: `🌐  ${PERSONAL.portfolio.replace("https://", "")}`, href: PERSONAL.portfolio, color: "#a78bfa", accent: "rgba(167,139,250,0.22)", full: true },
-        ].map((s) => (
-          <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-[12px] font-extrabold transition-all duration-200 hover:brightness-125 ${s.full ? "col-span-2" : ""}`}
-            style={{ color: s.color, border: `1px solid ${s.accent}`, background: `${s.accent}55`, textDecoration: "none" }}>
-            {s.label}
-          </a>
-        ))}
+        <a
+          href={PERSONAL.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-[12px] font-extrabold text-white/80 bg-white/5 border border-white/15 hover:border-white/30 hover:text-white transition-all duration-200"
+        >
+          GitHub
+        </a>
+
+        <a
+          href={PERSONAL.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-[12px] font-extrabold text-sky-300 bg-sky-500/15 border border-sky-400/30 hover:border-sky-400/50 hover:text-white transition-all duration-200"
+        >
+          LinkedIn
+        </a>
+
+        <a
+          href={PERSONAL.portfolio}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="col-span-2 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-[12px] font-extrabold text-violet-300 bg-violet-600/15 border border-violet-400/30 hover:border-violet-400/50 hover:text-white transition-all duration-200"
+        >
+          <span>🌐</span>
+          <span>{displayWebsite}</span>
+        </a>
       </div>
     </div>
   );
 }
 
+/**
+ * Right Column: Interactive email submission form
+ */
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const sentTimerRef = useRef(null);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  useEffect(() => {
+    return () => clearTimeout(sentTimerRef.current);
+  }, []);
 
-  const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.message) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setError("Please fill in Name, Email, and Message.");
       return;
     }
+
     setError("");
     setSending(true);
 
     try {
-      /* EmailJS send */
       if (SERVICE_ID !== "YOUR_SERVICE_ID" && window.emailjs) {
         await window.emailjs.send(SERVICE_ID, TEMPLATE_ID, {
           from_name: form.name,
           from_email: form.email,
-          subject: form.subject || "Portfolio Contact",
+          subject: form.subject || "Portfolio Inquiry",
           message: form.message,
           to_email: PERSONAL.email,
         });
       } else {
-        /* Fallback: mailto */
-        const mailto = `mailto:${PERSONAL.email}?subject=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
-        window.open(mailto, "_blank");
+        // Safe fallback using mailto link
+        const subjectEnc = encodeURIComponent(form.subject || "Portfolio Inquiry");
+        const bodyEnc = encodeURIComponent(
+          `Sender: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+        );
+        window.open(`mailto:${PERSONAL.email}?subject=${subjectEnc}&body=${bodyEnc}`, "_blank");
       }
+
       setSent(true);
       setForm({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSent(false), 6000);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+
+      clearTimeout(sentTimerRef.current);
+      sentTimerRef.current = setTimeout(() => setSent(false), 6000);
+    } catch {
+      setError("Something went wrong while sending. Please reach out directly via email.");
     } finally {
       setSending(false);
     }
   };
 
-  const inputStyle = {
-    background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "10px", padding: "11px 14px", color: "#fff",
-    fontSize: "13px", fontFamily: "Nunito, sans-serif", fontWeight: 600,
-    outline: "none", width: "100%", transition: "border-color .2s, background .2s",
-  };
-
-  const fields = [
-    { label: "Your Name", name: "name", type: "input", placeholder: "Murali A" },
-    { label: "Email Address", name: "email", type: "input", placeholder: "murali@example.com" },
-    { label: "Subject", name: "subject", type: "input", placeholder: "Project Collaboration / Job Opportunity" },
-    { label: "Message", name: "message", type: "textarea", placeholder: "Tell me about your project or opportunity..." },
-  ];
-
   return (
-    <div className="rounded-2xl p-7" style={{ border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.03)" }}>
-      <AboutLabel text="Send a Message" />
-      <div className="flex flex-col gap-4 mb-5">
-        {fields.map((f) => (
-          <div key={f.name} className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-extrabold uppercase tracking-wider text-white/40">{f.label}</label>
-            {f.type === "input" ? (
-              <input name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder} style={inputStyle} />
-            ) : (
-              <textarea name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder} rows={5}
-                style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }} />
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="rounded-2xl p-6 sm:p-7 border border-white/10 bg-white/[0.03] backdrop-blur-md">
+      <ContactLabel text="Send a Message" />
 
-      {error && <p className="text-[12px] text-red-400 mb-3 font-semibold">{error}</p>}
-
-      <button onClick={handleSubmit} disabled={sending}
-        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-[13.5px] font-extrabold text-white transition-all duration-200 hover:scale-[1.02] active:scale-100 disabled:opacity-60"
-        style={{ background: "linear-gradient(135deg,#7c3aed,#4c1d95)", boxShadow: "0 4px 18px rgba(124,58,237,0.45)", border: "none", cursor: sending ? "wait" : "pointer" }}>
-        {sending ? "Sending..." : "Send Message"}
-        {!sending && (
-          <svg xmlns="http://www.w3.org/2000/svg" width={15} height={15} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-          </svg>
-        )}
-      </button>
-
-      {sent && (
-        <div className="flex items-center gap-2.5 mt-4 px-4 py-3 rounded-xl text-[13px] font-bold"
-          style={{ color: "#34d399", border: "1px solid rgba(52,211,153,0.25)", background: "rgba(52,211,153,0.07)" }}>
-          ✅ &nbsp; Message sent! I'll get back to you soon.
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Name Input */}
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="contact-name" className="text-[11px] font-extrabold uppercase tracking-wider text-white/40">
+            Your Name *
+          </label>
+          <input
+            id="contact-name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Murali A"
+            required
+            className="w-full px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-white/[0.04] border border-white/10 focus:border-violet-500 focus:outline-none transition-colors"
+          />
         </div>
-      )}
+
+        {/* Email Input */}
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="contact-email" className="text-[11px] font-extrabold uppercase tracking-wider text-white/40">
+            Email Address *
+          </label>
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="murali@example.com"
+            required
+            className="w-full px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-white/[0.04] border border-white/10 focus:border-violet-500 focus:outline-none transition-colors"
+          />
+        </div>
+
+        {/* Subject Input */}
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="contact-subject" className="text-[11px] font-extrabold uppercase tracking-wider text-white/40">
+            Subject
+          </label>
+          <input
+            id="contact-subject"
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            placeholder="Project Collaboration / Career Opportunity"
+            className="w-full px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-white/[0.04] border border-white/10 focus:border-violet-500 focus:outline-none transition-colors"
+          />
+        </div>
+
+        {/* Message Input */}
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="contact-message" className="text-[11px] font-extrabold uppercase tracking-wider text-white/40">
+            Message *
+          </label>
+          <textarea
+            id="contact-message"
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            placeholder="Tell me about your project or opportunity..."
+            rows={5}
+            required
+            className="w-full px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-white/[0.04] border border-white/10 focus:border-violet-500 focus:outline-none transition-colors resize-none leading-relaxed"
+          />
+        </div>
+
+        {/* Validation / Error Message */}
+        {error && (
+          <p className="text-[12px] text-rose-400 font-semibold">{error}</p>
+        )}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={sending}
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-[13.5px] font-extrabold text-white transition-all duration-200 hover:scale-[1.01] active:scale-98 disabled:opacity-60 bg-gradient-to-r from-violet-600 to-purple-800 shadow-lg shadow-violet-600/35 cursor-pointer mt-1"
+        >
+          {sending ? "Sending..." : "Send Message"}
+          {!sending && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={15}
+              height={15}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+          )}
+        </button>
+
+        {/* Success Confirmation Toast */}
+        {sent && (
+          <div className="flex items-center gap-2.5 mt-2 px-4 py-3 rounded-xl text-[13px] font-bold text-emerald-400 border border-emerald-500/25 bg-emerald-500/10">
+            <span>✅</span>
+            <span>Message sent! I'll get back to you shortly.</span>
+          </div>
+        )}
+      </form>
     </div>
   );
 }
 
+/**
+ * Contact Section
+ */
 export default function Contact() {
   return (
     <section id="contact" className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <div className="max-w-4xl w-full mx-auto">
         <SectionHeader label="Contact" title="Let's Build Something Together" />
-        <p className="text-center text-white/45 text-[13.5px] font-semibold -mt-8 mb-12">
-          Got a project in mind? I'd love to hear about it.
+        <p className="text-center text-white/50 text-[13.5px] font-semibold -mt-8 mb-12">
+          Got an exciting project or opportunity in mind? I'd love to connect.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           <ContactInfoPanel />
           <ContactForm />
         </div>

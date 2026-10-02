@@ -30,7 +30,7 @@
   <meta name="twitter:image" content="/og-image.png" />
 
   <!-- ── Canonical ── -->
-  <link rel="canonical" href="https://murali-myportfolio.vercel.app/" />
+  <link rel="canonical" href="https://my-self-murali.vercel.app/" />
 
   <!-- ── Favicon ── -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -46,7 +46,9 @@
   <script type="text/javascript">
     (function () {
       // Replace with your real EmailJS Public Key after signup at emailjs.com
-      emailjs.init({ publicKey: "YOUR_EMAILJS_PUBLIC_KEY" });
+      if (typeof emailjs !== "undefined" && emailjs.init) {
+        emailjs.init({ publicKey: "YOUR_EMAILJS_PUBLIC_KEY" });
+      }
     })();
   </script>
 </head>
