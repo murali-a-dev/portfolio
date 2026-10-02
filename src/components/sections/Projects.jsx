@@ -3,33 +3,23 @@ import SectionHeader from "../ui/SectionHeader";
 import ProjectModal from "../ui/ProjectModal";
 import { PROJECTS, PERSONAL } from "../../data/portfolioData";
 
-/**
- * TechChip
- * Minimalist tech tag with pure CSS hover effect.
- */
 function TechChip({ name, accent }) {
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-default transition-all duration-200 border border-white/10 bg-white/[0.03] text-white/70 hover:text-white"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = `${accent}66`;
-        e.currentTarget.style.background = `${accent}18`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-        e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+      className="tech-chip inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-default transition-all duration-200"
+      style={{
+        border: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(255,255,255,0.03)",
+        color: "rgba(255,255,255,0.72)",
+        "--chip-accent": accent,
       }}
     >
       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />
-      <span>{name}</span>
+      {name}
     </span>
   );
 }
 
-/**
- * Projects Section
- * Dual flagship showcase with multi-portal ecosystem launchers and interactive modal.
- */
 export default function Projects() {
   const [selectedModalProject, setSelectedModalProject] = useState(null);
 
@@ -48,7 +38,7 @@ export default function Projects() {
         {/* Section Header */}
         <div>
           <SectionHeader label="Production Architectures" title="Featured Systems" />
-          <p className="text-center text-white/60 text-[13px] sm:text-[14.5px] max-w-2xl mx-auto -mt-8 sm:-mt-9 px-4 leading-relaxed font-medium">
+          <p className="text-center text-white/55 text-[13px] sm:text-[14.5px] max-w-2xl mx-auto -mt-8 sm:-mt-9 px-4 leading-relaxed font-medium">
             Full-stack enterprise architectures, real-time operations engines, and live multi-portal deployments engineered from concept to production.
           </p>
         </div>
@@ -60,9 +50,9 @@ export default function Projects() {
               key={project.id}
               className="relative rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between group shadow-2xl"
               style={{
-                border: `1px solid ${project.accentDim}`,
+                border:     `1px solid ${project.accentDim}`,
                 background: "linear-gradient(165deg, rgba(26, 17, 56, 0.85) 0%, rgba(13, 6, 36, 0.95) 100%)",
-                boxShadow: `0 20px 50px -15px rgba(0,0,0,0.65), 0 0 35px -8px ${project.accent}22`,
+                boxShadow:  `0 20px 50px -15px rgba(0,0,0,0.65), 0 0 35px -8px ${project.accent}22`,
               }}
             >
               {/* Top Accent Line */}
@@ -70,7 +60,6 @@ export default function Projects() {
                 className="absolute top-0 left-0 right-0 h-[3px]"
                 style={{ background: project.gradient || project.accent }}
               />
-
               {/* Ambient Inner Glow */}
               <div
                 className="absolute -top-24 -right-24 w-60 h-60 rounded-full pointer-events-none blur-3xl opacity-20 group-hover:opacity-35 transition-opacity"
@@ -79,7 +68,7 @@ export default function Projects() {
 
               <div className="p-5 sm:p-7 flex-1 flex flex-col justify-between">
                 <div>
-                  {/* Top Badges & Status Row */}
+                  {/* Top Badges */}
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
                     <span
                       className="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full"
@@ -91,14 +80,13 @@ export default function Projects() {
                     >
                       {project.badge}
                     </span>
-
                     <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       {project.statusText}
                     </span>
                   </div>
 
-                  {/* Project Artwork Frame & Portal Strip */}
+                  {/* Project Artwork */}
                   <div
                     className="relative w-full rounded-2xl p-4 sm:p-6 mb-5 flex flex-col items-center justify-center border overflow-hidden transition-all duration-300 group-hover:border-white/20"
                     style={{
@@ -115,11 +103,11 @@ export default function Projects() {
                       />
                     </div>
 
-                    {/* Integrated Multi-Tier Apps Strip */}
+                    {/* Dynamic portal count from data */}
                     <div className="w-full mt-4 pt-3 border-t border-white/10">
                       <div className="flex items-center justify-between gap-2 mb-2 px-1">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
-                          ⚡ 3 Integrated Multi-Tier Apps
+                        <span className="text-[10px] font-black uppercase tracking-wider text-white/45">
+                          ⚡ {project.portals?.length} Integrated Multi-Tier Apps
                         </span>
                         <span className="text-[9px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
                           Live Ecosystem
@@ -149,7 +137,7 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  {/* Title & Tagline */}
+                  {/* Title & Subtitle */}
                   <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight m-0">
                     {project.name}
                   </h3>
@@ -161,11 +149,11 @@ export default function Projects() {
                   </p>
 
                   {/* Description */}
-                  <p className="text-[12.5px] sm:text-[13px] text-white/70 leading-[1.7] mb-5">
+                  <p className="text-[12.5px] sm:text-[13px] text-white/65 leading-[1.7] mb-5">
                     {project.description}
                   </p>
 
-                  {/* Key Highlights Checklist */}
+                  {/* Key Highlights */}
                   <div className="space-y-2 mb-6">
                     {project.highlights.slice(0, 3).map((hl, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-[11.5px] sm:text-[12px] text-white/80">
@@ -190,14 +178,14 @@ export default function Projects() {
                       <TechChip key={s} name={s} accent={project.accent} />
                     ))}
                     {project.stack.length > 6 && (
-                      <span className="text-[10px] font-bold text-white/45 self-center px-1">
+                      <span className="text-[10px] font-bold text-white/40 self-center px-1">
                         +{project.stack.length - 6} more
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Primary Action Button Cluster */}
+                {/* Action Buttons */}
                 <div className="pt-4 border-t border-white/10 space-y-2.5">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                     <a
@@ -215,8 +203,8 @@ export default function Projects() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
-
                     <button
+                      type="button"
                       onClick={() => setSelectedModalProject(project)}
                       className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-[12px] font-bold text-white bg-white/5 hover:bg-white/10 transition-all border border-white/15 hover:border-white/30 cursor-pointer w-full sm:w-auto"
                     >
@@ -224,18 +212,16 @@ export default function Projects() {
                     </button>
                   </div>
 
-                  {/* Direct Ecosystem Apps Buttons */}
+                  {/* Portal quick-links */}
                   <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-white/45 mr-1">
-                      Apps:
-                    </span>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white/40 mr-1">Apps:</span>
                     {project.portals?.map((portal, idx) => (
                       <a
                         key={idx}
                         href={portal.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-white/80 hover:text-white bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-white/25 transition-all"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-white/75 hover:text-white bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-white/25 transition-all"
                       >
                         <span className="text-xs">{portal.icon}</span>
                         <span>{portal.badge}</span>
@@ -251,7 +237,7 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* More Projects on GitHub Banner */}
+        {/* GitHub Banner */}
         <div className="pt-4 sm:pt-6">
           <div
             className="relative rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl transition-all duration-300"
@@ -261,20 +247,16 @@ export default function Projects() {
               boxShadow: "0 20px 50px -15px rgba(0,0,0,0.6), 0 0 40px -10px rgba(124,58,237,0.18)",
             }}
           >
-            {/* Ambient Corner Glow */}
             <div
               className="absolute -top-20 -right-20 w-60 h-60 rounded-full pointer-events-none blur-3xl opacity-20"
               style={{ background: "#7c3aed" }}
             />
-
-            {/* Left Content Area */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left relative z-10">
               <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/15 flex items-center justify-center flex-shrink-0 p-3.5 shadow-inner">
                 <svg className="w-full h-full fill-white" viewBox="0 0 24 24">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                 </svg>
               </div>
-
               <div className="space-y-1.5 max-w-xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10.5px] font-extrabold uppercase tracking-widest text-violet-300 bg-violet-500/15 border border-violet-500/25">
                   <span>✦</span>
@@ -283,14 +265,12 @@ export default function Projects() {
                 <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight m-0">
                   Looking for more projects?
                 </h4>
-                <p className="text-[13px] sm:text-[13.5px] text-white/70 leading-relaxed m-0">
-                  I have several web applications, experimental features, UI prototypes, and utilities open-sourced on my GitHub profile. Feel free to explore my repositories, view commit activity, and inspect the code!
+                <p className="text-[13px] sm:text-[13.5px] text-white/65 leading-relaxed m-0">
+                  I have several web applications, experimental features, UI prototypes, and utilities open-sourced on my GitHub profile. Feel free to explore my repositories and inspect the code!
                 </p>
               </div>
             </div>
-
-            {/* Right Action Button */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto relative z-10 flex-shrink-0">
+            <div className="flex items-center gap-3 w-full md:w-auto relative z-10 flex-shrink-0">
               <a
                 href={PERSONAL.github}
                 target="_blank"
@@ -314,7 +294,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Interactive Architecture & Case Study Modal */}
+      {/* Project Modal */}
       <ProjectModal
         project={selectedModalProject}
         onClose={() => setSelectedModalProject(null)}
