@@ -3,13 +3,9 @@ import SectionHeader from "../ui/SectionHeader";
 import AboutLabel from "../ui/AboutLabel";
 import { PERSONAL } from "../../data/portfolioData";
 
-/* EmailJS credentials — set in .env as:
- *   VITE_EMAILJS_SERVICE_ID=your_service_id
- *   VITE_EMAILJS_TEMPLATE_ID=your_template_id
- * Sign up at https://emailjs.com (free tier available)
- */
 const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || "";
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || "";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_MESSAGE = 2000;
@@ -121,14 +117,19 @@ function ContactForm() {
     setSending(true);
 
     try {
-      if (SERVICE_ID && window.emailjs) {
-        await window.emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-          from_name:  form.name,
-          from_email: form.email,
-          subject:    form.subject || "Portfolio Contact",
-          message:    form.message,
-          to_email:   PERSONAL.email,
-        });
+      if (SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY && window.emailjs) {
+        await window.emailjs.send(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          {
+            from_name:  form.name,
+            from_email: form.email,
+            subject:    form.subject || "Portfolio Contact",
+            message:    form.message,
+            to_email:   PERSONAL.email,
+          },
+          PUBLIC_KEY
+        );
       } else {
         /* Fallback: open default mail client */
         const mailto = `mailto:${PERSONAL.email}?subject=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;

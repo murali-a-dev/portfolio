@@ -14,9 +14,9 @@ export const PERSONAL = {
   location: "Erode, Tamil Nadu, India",
   email: "muraliofficial68@gmail.com",
   phone: "+91 6383217328",
-  portfolio: "https://my-self-murali.vercel.app",
-  github: "https://github.com/muraliofficial",
-  linkedin: "https://www.linkedin.com/in/murali-a-096738297/",
+  portfolio: "https://myself-murali.vercel.app/",
+  github: "https://github.com/murali-a-dev",
+  linkedin: "https://www.linkedin.com/in/murali6872",
   resume: "/Murali_A.pdf",
   bio: [
     "I'm a Full-Stack Web Developer with 2+ years of experience building high-performance web architectures and fluid user experiences. My core stack revolves around React.js, Vue 3, Tailwind CSS v4, and Node.js — backed by Firebase for scalable cloud infrastructure.",
@@ -26,31 +26,31 @@ export const PERSONAL = {
 
 /* ── Navigation Links ──────────────────────── */
 export const NAV_LINKS = [
-  { label: "Home",       href: "#hero",       icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
-  { label: "About",      href: "#about",      icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
-  { label: "Skills",     href: "#skills",     icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
+  { label: "Home", href: "#hero", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
+  { label: "About", href: "#about", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
+  { label: "Skills", href: "#skills", icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
   { label: "Experience", href: "#experience", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
-  { label: "Projects",   href: "#projects",   icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
-  { label: "Contact",    href: "#contact",    icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+  { label: "Projects", href: "#projects", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+  { label: "Contact", href: "#contact", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
 ];
 
 /* ── Hero Tech Stack Chips ─────────────────── */
 export const TECH_STACK = [
-  { name: "React.js",    color: "#61DAFB", glyph: "⚛" },
-  { name: "Vue 3",       color: "#42b883", glyph: "◈" },
+  { name: "React.js", color: "#61DAFB", glyph: "⚛" },
+  { name: "Vue 3", color: "#42b883", glyph: "◈" },
   { name: "Tailwind v4", color: "#38BDF8", glyph: "◉" },
-  { name: "Node.js",     color: "#8CC84B", glyph: "⬡" },
-  { name: "Express.js",  color: "#a78bfa", glyph: "🚂" },
-  { name: "Firebase",    color: "#FFCA28", glyph: "🔥" },
-  { name: "MongoDB",     color: "#4DB33D", glyph: "◆" },
+  { name: "Node.js", color: "#8CC84B", glyph: "⬡" },
+  { name: "Express.js", color: "#a78bfa", glyph: "🚂" },
+  { name: "Firebase", color: "#FFCA28", glyph: "🔥" },
+  { name: "MongoDB", color: "#4DB33D", glyph: "◆" },
 ];
 
 /* ── Hero Stats ────────────────────────────── */
 export const STATS = [
-  { label: "Years Experience", value: 2,  suffix: "+" },
+  { label: "Years Experience", value: 2, suffix: "+" },
   { label: "Projects Shipped", value: 10, suffix: "+" },
   { label: "Tech Stack Tools", value: 20, suffix: "+" },
-  { label: "Award Won",        value: 1,  suffix: "🏆" },
+  { label: "Award Won", value: 1, suffix: "🏆" },
 ];
 
 /* ── Skills Categories ─────────────────────── */
@@ -62,8 +62,8 @@ export const SKILL_CATEGORIES = [
     accentBg: "rgba(97,218,251,0.08)",
     accentDim: "rgba(97,218,251,0.3)",
     skills: [
-      { name: "React.js",      icon: "⚛" },
-      { name: "Vue 3",         icon: "◈" },
+      { name: "React.js", icon: "⚛" },
+      { name: "Vue 3", icon: "◈" },
       { name: "Handlebars.js", icon: "🖐" },
     ],
   },
@@ -74,10 +74,10 @@ export const SKILL_CATEGORIES = [
     accentBg: "rgba(56,189,248,0.08)",
     accentDim: "rgba(56,189,248,0.3)",
     skills: [
-      { name: "HTML5",          icon: "🏗" },
-      { name: "CSS3",           icon: "🎨" },
-      { name: "Tailwind CSS v4",icon: "◉" },
-      { name: "Bootstrap",      icon: "⚡" },
+      { name: "HTML5", icon: "🏗" },
+      { name: "CSS3", icon: "🎨" },
+      { name: "Tailwind CSS v4", icon: "◉" },
+      { name: "Bootstrap", icon: "⚡" },
     ],
   },
   {
@@ -87,10 +87,10 @@ export const SKILL_CATEGORIES = [
     accentBg: "rgba(140,200,75,0.08)",
     accentDim: "rgba(140,200,75,0.3)",
     skills: [
-      { name: "Node.js",    icon: "⬡" },
+      { name: "Node.js", icon: "⬡" },
       { name: "Express.js", icon: "🚂" },
-      { name: "REST APIs",  icon: "🔗" },
-      { name: "Axios",      icon: "📡" },
+      { name: "REST APIs", icon: "🔗" },
+      { name: "Axios", icon: "📡" },
     ],
   },
   {
@@ -101,8 +101,8 @@ export const SKILL_CATEGORIES = [
     accentDim: "rgba(255,202,40,0.3)",
     skills: [
       { name: "Firebase", icon: "🔥" },
-      { name: "MongoDB",  icon: "◆" },
-      { name: "MySQL",    icon: "🗄" },
+      { name: "MongoDB", icon: "◆" },
+      { name: "MySQL", icon: "🗄" },
     ],
   },
   {
@@ -112,13 +112,13 @@ export const SKILL_CATEGORIES = [
     accentBg: "rgba(167,139,250,0.08)",
     accentDim: "rgba(167,139,250,0.3)",
     skills: [
-      { name: "VS Code",    icon: "📝" },
-      { name: "Cursor AI",  icon: "🤖" },
-      { name: "Figma",      icon: "🎨" },
-      { name: "Claude AI",  icon: "🧠" },
-      { name: "Git & GitHub",icon: "🌿" },
+      { name: "VS Code", icon: "📝" },
+      { name: "Cursor AI", icon: "🤖" },
+      { name: "Figma", icon: "🎨" },
+      { name: "Claude AI", icon: "🧠" },
+      { name: "Git & GitHub", icon: "🌿" },
       { name: "SourceTree", icon: "🌲" },
-      { name: "Postman API",icon: "📮" },
+      { name: "Postman API", icon: "📮" },
     ],
   },
 ];
@@ -182,13 +182,16 @@ export const PROJECTS = [
     description:
       "An end-to-end full-stack e-commerce supermarket and hyper-local delivery management platform integrating a customer storefront with OTP auth, a real-time back-office operations & inventory management panel, and a dedicated OnTime rider logistics portal.",
     link: "https://buykart-supermart.vercel.app",
-    github: "https://github.com/muraliofficial/Buykart",
+    adminLink: "https://buykart-supermart.vercel.app/admin",
+    adminLabel: "Admin ERP",
+    adminIcon: "📊",
+    github: "https://github.com/murali-a-dev/Buykart",
     statusText: "Live on Vercel",
     accent: "#8b5cf6",
     accentBg: "rgba(139,92,246,0.12)",
     accentDim: "rgba(139,92,246,0.45)",
     gradient: "linear-gradient(135deg, #7c3aed, #4f46e5)",
-    stack: ["React 19", "Tailwind CSS v4", "Vite 8", "Node.js", "Express 5", "Firebase Firestore", "Cloudinary CDN", "Chart.js", "JWT Auth"],
+    stack: ["React 19", "Tailwind CSS v4", "Vite 8", "Node.js", "Express 5", "Firebase Firestore", "Cloudinary CDN", "Chart.js", "Leaflet Maps", "JWT Auth"],
     highlights: [
       "3 Synchronized Real-Time Portals (Customer, Admin ERP, OnTime Rider)",
       "Real-time Inventory Mutation & Supplier Inward Purchase Entries",
@@ -216,7 +219,7 @@ export const PROJECTS = [
         badge: "Rider App",
         icon: "🛵",
         desc: "Mobile-first courier interface with assigned task queues, route notes, and one-tap order state progression.",
-        url: "https://buykart-supermart.vercel.app/rider",
+        url: "https://buykart-supermart.vercel.app/ontime",
       },
     ],
     architecture: {
@@ -240,8 +243,10 @@ export const PROJECTS = [
       "A high-performance Quick Service Restaurant (QSR) ordering and kitchen operations platform bridging dynamic customer digital menus and live order status tracking with kitchen staff via an interactive Kitchen Display System (KDS) and executive POS analytics.",
     link: "https://chick-blast.vercel.app",
     adminLink: "https://chick-blast.vercel.app/admin",
-    kdsLink: "https://chick-blast.vercel.app/ready_for_pickup",
-    github: "https://github.com/muraliofficial/chick_blast",
+    adminLabel: "Admin / KDS",
+    adminIcon: "👨‍🍳",
+    kdsLink: "https://chick-blast.vercel.app/admin/live-orders",
+    github: "https://github.com/murali-a-dev/chick_blast",
     statusText: "Live on Vercel",
     accent: "#f97316",
     accentBg: "rgba(249,115,22,0.12)",
@@ -263,11 +268,18 @@ export const PROJECTS = [
         desc: "Dynamic category menu browsing, smart cart calculation, auto-saved customer details, and live stepper order tracker.",
         url: "https://chick-blast.vercel.app",
       },
+      // {
+      //   name: "Kitchen Display System",
+      //   badge: "Kitchen KDS",
+      //   icon: "👨‍🍳",
+      //   desc: "Live kitchen pipeline for cooks with one-click status transitions across Pending, Preparing, Packed, and Delivered.",
+      //   url: "https://chick-blast.vercel.app/admin/live-orders",
+      // },
       {
-        name: "Kitchen Display System",
-        badge: "Kitchen KDS",
-        icon: "👨‍🍳",
-        desc: "Live kitchen pipeline for cooks with one-click status transitions across Pending, Preparing, Packed, and Delivered.",
+        name: "Ready for Pickup Board",
+        badge: "Pickup Board",
+        icon: "🔔",
+        desc: "Dedicated full-screen takeaway pickup board with Web Audio sound chime announcements and live order queue.",
         url: "https://chick-blast.vercel.app/ready_for_pickup",
       },
       {
@@ -298,7 +310,7 @@ export const EDUCATION = {
 /* ── Achievements ──────────────────────────── */
 export const ACHIEVEMENTS = [
   { emoji: "🏆", title: "Best Employee of the Year", sub: "Optech Software India Pvt. Ltd. · 2023" },
-  { emoji: "🥈", title: "Runner-up — Papyrus",       sub: "Technical Presentation Competition" },
+  { emoji: "🥈", title: "Runner-up — Papyrus", sub: "Technical Presentation Competition" },
   { emoji: "📸", title: "First Prize — Photography", sub: "College Photography Competition" },
 ];
 

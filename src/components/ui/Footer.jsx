@@ -1,3 +1,5 @@
+import { PERSONAL } from "../../data/portfolioData";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -16,7 +18,7 @@ export default function Footer() {
 
       <div className="flex items-center justify-center gap-4 mb-3">
         <a
-          href="https://github.com/muraliofficial"
+          href={PERSONAL.github}
           target="_blank"
           rel="noopener noreferrer"
           className="text-white/30 hover:text-purple-400 transition-colors font-semibold"
@@ -25,7 +27,7 @@ export default function Footer() {
         </a>
         <span className="text-white/15">·</span>
         <a
-          href="https://www.linkedin.com/in/murali-a-096738297/"
+          href={PERSONAL.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           className="text-white/30 hover:text-sky-400 transition-colors font-semibold"
@@ -37,12 +39,12 @@ export default function Footer() {
       <p>
         Designed &amp; Crafted by{" "}
         <a
-          href="https://github.com/muraliofficial"
+          href={PERSONAL.github}
           target="_blank"
           rel="noopener noreferrer"
           className="text-purple-400 hover:text-white transition-colors"
         >
-          Murali
+          {PERSONAL.shortName || "Murali"}
         </a>
         {" "}· React + Tailwind CSS v4 · © {year}
       </p>

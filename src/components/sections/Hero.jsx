@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { TECH_STACK, PARTICLES, PERSONAL, STATS } from "../../data/portfolioData";
+import { HeroPhotoCard } from "../ui/PhotoCard";
 import muraliPhoto from "../../assets/murali-profile.jpg";
 
 /* ── Animated counter ── */
@@ -8,22 +9,31 @@ function AnimatedNumber({ target, suffix = "" }) {
   const ref = useRef(null);
 
   useEffect(() => {
+    let timer = null;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          observer.disconnect();
           let start = 0;
-          const step = Math.ceil(target / 50);
-          const timer = setInterval(() => {
+          const step = Math.max(1, Math.ceil(target / 50));
+          timer = setInterval(() => {
             start += step;
-            if (start >= target) { setCount(target); clearInterval(timer); }
-            else setCount(start);
+            if (start >= target) {
+              setCount(target);
+              clearInterval(timer);
+            } else {
+              setCount(start);
+            }
           }, 30);
         }
       },
       { threshold: 0.5 }
     );
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timer) clearInterval(timer);
+    };
   }, [target]);
 
   return <span ref={ref}>{count}{suffix}</span>;
@@ -56,92 +66,6 @@ function Typewriter({ texts, speed = 80, pause = 2000 }) {
       {display}
       <span style={{ color: "#a78bfa", animation: "blink .7s steps(1) infinite" }}>|</span>
     </span>
-  );
-}
-
-/* ── Hero Photo Card ── */
-function HeroPhotoCard() {
-  return (
-    <div className="flex justify-center md:justify-end items-center w-full">
-      <div
-        className="relative flex-shrink-0"
-        style={{ width: "clamp(220px, 28vw, 310px)", height: "clamp(275px, 35vw, 390px)" }}
-      >
-        {/* Slow-spinning gradient ring */}
-        <div
-          className="absolute rounded-3xl"
-          style={{
-            inset: "-13px",
-            background: "linear-gradient(135deg, rgba(124,58,237,0.8), rgba(167,139,250,0.3), rgba(88,28,201,0.8))",
-            animation: "hero-ring-spin 7s linear infinite",
-            zIndex: 0,
-          }}
-        />
-        {/* Glassmorphic dark backing */}
-        <div
-          className="absolute rounded-3xl"
-          style={{ inset: "-5px", background: "rgba(15,7,42,0.88)", backdropFilter: "blur(4px)", zIndex: 1 }}
-        />
-        {/* Photo */}
-        <div className="absolute inset-0 rounded-3xl overflow-hidden" style={{ zIndex: 2 }}>
-          <img
-            src={muraliPhoto}
-            alt="Murali A — Full-Stack Web Developer"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "center 26%", transform: "scale(1.08)", transformOrigin: "center 28%" }}
-            fetchpriority="high"
-            loading="eager"
-          />
-          <div
-            className="absolute bottom-0 left-0 right-0 h-14 rounded-b-3xl"
-            style={{ background: "linear-gradient(to bottom, transparent, rgba(15,7,42,0.4))" }}
-          />
-        </div>
-        {/* Corner glow dots */}
-        {[
-          { top: "-5px",    left:  "-5px"  },
-          { top: "-5px",    right: "-5px"  },
-          { bottom: "-5px", left:  "-5px"  },
-          { bottom: "-5px", right: "-5px"  },
-        ].map((pos, i) => (
-          <div
-            key={i}
-            className="absolute w-2.5 h-2.5 rounded-full"
-            style={{ ...pos, background: "#7c3aed", boxShadow: "0 0 14px rgba(124,58,237,0.9)", zIndex: 3 }}
-          />
-        ))}
-        {/* Top-right floating badge */}
-        <div
-          className="absolute flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10.5px] font-extrabold text-white"
-          style={{
-            top: "-14px", right: "-8px", zIndex: 4,
-            background: "rgba(124,58,237,0.94)",
-            border: "1px solid rgba(167,139,250,0.4)",
-            boxShadow: "0 4px 18px rgba(124,58,237,0.55)",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          ⚡ Full-Stack Dev
-        </div>
-        {/* Bottom-center floating badge */}
-        <div
-          className="absolute flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10.5px] font-extrabold"
-          style={{
-            bottom: "-16px", left: "50%", transform: "translateX(-50%)",
-            zIndex: 4, color: "#34d399", whiteSpace: "nowrap",
-            background: "rgba(15,7,42,0.94)",
-            border: "1px solid rgba(52,211,153,0.32)",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-            style={{ background: "#34d399", animation: "hero-dot-pulse 1.8s ease-in-out infinite" }}
-          />
-          Ready to Contribute
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -341,15 +265,15 @@ export default function Hero() {
 
         {/* ── RIGHT: Photo ── */}
         <div className="order-1 md:order-2 flex justify-center md:justify-end">
-          <HeroPhotoCard />
+          <HeroPhotoCard src={muraliPhoto} />
         </div>
 
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/28">
-        <span className="text-[9px] tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-9 bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
+      {/* Scroll indicator - safely elevated so it does not collide with the fixed bottom navbar */}
+      <div className="hidden md:flex absolute bottom-24 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5 text-white/28 pointer-events-none">
+        <span className="text-[9px] tracking-widest uppercase font-bold text-white/35">Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-white/35 to-transparent animate-pulse" />
       </div>
     </section>
   );

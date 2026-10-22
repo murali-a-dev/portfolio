@@ -75,16 +75,6 @@ murali-portfolio/
 2. Create a **Service** (Gmail) → copy **Service ID**
 3. Create an **Email Template** → copy **Template ID**
 4. Go to Account → copy **Public Key**
-5. Open `src/components/sections/Contact.jsx`
-6. Replace these 3 values:
-
-```js
-const SERVICE_ID  = "YOUR_SERVICE_ID";
-const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-// Public key is already set in index.html
-```
-
----
 
 ## 📄 Resume
 

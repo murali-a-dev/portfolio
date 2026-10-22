@@ -75,6 +75,8 @@ export function HeroPhotoCard({ src, alt = "Murali A — Full-Stack Web Develope
           <img
             src={src}
             alt={alt}
+            fetchPriority="high"
+            loading="eager"
             className="w-full h-full object-cover"
             style={{ objectPosition: "center 26%", transform: "scale(1.08)", transformOrigin: "center 28%" }}
             onError={(e) => {

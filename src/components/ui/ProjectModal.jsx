@@ -3,6 +3,13 @@ import { useState, useEffect } from "react";
 export default function ProjectModal({ project, onClose }) {
   const [activeTab, setActiveTab] = useState("architecture");
 
+  // Reset tab to architecture when project changes
+  useEffect(() => {
+    if (project) {
+      setActiveTab("architecture");
+    }
+  }, [project]);
+
   // Handle ESC key press and body scroll locking
   useEffect(() => {
     if (!project) return;
@@ -394,7 +401,7 @@ export default function ProjectModal({ project, onClose }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11.5px] sm:text-[12px] font-bold text-white/80 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
               >
-                <span>👨‍🍳</span> Admin / KDS
+                <span>{project.adminIcon || "⚙️"}</span> {project.adminLabel || "Admin Portal"}
               </a>
             )}
           </div>
